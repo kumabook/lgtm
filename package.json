@@ -2,8 +2,8 @@
   "name": "lgtm-for-firefox",
   "title": "lgtm-for-firefox",
   "id": "jid1-CbdyHpcJMUhYvQ",
-  "description": "a basic add-on",
-  "author": "",
+  "description": "Show LGTM images from lgtm.in/g. Copy markdown text to clipboard or input pull request textarea",
+  "author": "Hiroki Kumamoto",
   "license": "MPL 2.0",
   "version": "0.1"
 }
