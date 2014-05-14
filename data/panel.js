@@ -53,7 +53,9 @@ self.port.on('hide', function() {
     });
     currentItems = null;
   }
-  lgtmListView.innerHTML = '';
+  while (lgtmListView.firstChild){
+    lgtmListView.removeChild(lgtmListView.firstChild);
+  }
   if (isLoading) {
     self.port.emit('cancel');
   }
