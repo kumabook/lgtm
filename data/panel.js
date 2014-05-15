@@ -29,12 +29,11 @@ self.port.on('add-images', function(items) {
     img.className = 'image';
     img.src = item.imageUrl;
     lgtmListView.appendChild(img);
-    img._clickListener =  function() {
+    img.onclick = function() {
       console.log('clicked:' + item);
       document.getElementById('message').style.display = '';
       self.port.emit('select', item);
     };
-    img.addEventListener('click', img._clickListener);
   });
 });
 
@@ -49,7 +48,7 @@ self.port.on('hide', function() {
   if (currentItems !== null) {
     currentItems.forEach(function(item) {
       var img = document.getElementById(item.id);
-      img.removeEventListener('click', img._clickListener);
+      img.onclick = null;
     });
     currentItems = null;
   }
