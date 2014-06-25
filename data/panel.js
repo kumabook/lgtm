@@ -1,28 +1,36 @@
 const lgtmListView = document.getElementById('lgtm-list-view');
 const magin = 20;
-var currentItems = null;
+var currentItems = [];
 var isLoading = false;
+var isVisible = false;
+var max = 3;
+var type = null;
 
 var showProgress = function() {
   isLoading = true;
-  var loader = document.createElement('img');
+  var loader = document.createElement('div');
+  loader.className = 'loader-container';
   loader.id = 'loader';
-  loader.src = 'loader.gif';
-  loader.className = 'loader';
+  var loaderImage = document.createElement('img');
+  loaderImage.src = 'loader.gif';
+  loaderImage.className = 'loader';
+  loader.appendChild(loaderImage);
   lgtmListView.appendChild(loader);
 };
 
 var hideProgress = function() {
   isLoading = false;
   var loader = document.getElementById('loader');
-  lgtmListView.removeChild(loader);
+  if (loader) {
+    lgtmListView.removeChild(loader);
+  }
 };
 
-self.port.on('add-images', function(items) {
+self.port.on('add-images', function(items, _max) {
+  max = _max;
   hideProgress();
-  currentItems = items;
+  currentItems = currentItems.concat(items);
   items.forEach(function(item) {
-    console.log('image ' + item);
     var img = document.createElement('img');
     img.id = item.id;
     img.width = window.innerWidth - magin;
@@ -37,25 +45,42 @@ self.port.on('add-images', function(items) {
   });
 });
 
-self.port.on('show', function() {
-  console.log('show progress');
+self.port.on('fetch-failed', function() {
+  hideProgress();
+  self.port.emit('complete');
+});
+
+self.port.on('show', function(_type) {
+  type = _type;
+  isVisible = true;
   document.getElementById('message').style.display = 'none';
   showProgress();
 });
 
 
 self.port.on('hide', function() {
-  if (currentItems !== null) {
-    currentItems.forEach(function(item) {
-      var img = document.getElementById(item.id);
-      img.onclick = null;
-    });
-    currentItems = null;
-  }
+  isVisible = false;
+  currentItems.forEach(function(item) {
+    var img = document.getElementById(item.id);
+    img.onclick = null;
+  });
+  currentItems = [];
+
   while (lgtmListView.firstChild){
     lgtmListView.removeChild(lgtmListView.firstChild);
   }
-  if (isLoading) {
-    self.port.emit('cancel');
-  }
+  self.port.emit('cancel');
+  self.port.emit('complete');
 });
+
+document.onscroll = function() {
+  var docElem = this.documentElement;
+  var bottom  = (docElem.scrollHeight - docElem.clientHeight) -
+                 docElem.scrollTop;
+  if (isVisible && !isLoading &&
+      bottom <= 50 &&
+      currentItems.length < max) {
+    showProgress();
+    self.port.emit('next', type);
+  }
+};
