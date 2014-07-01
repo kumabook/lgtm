@@ -1,5 +1,5 @@
 const lgtmListView = document.getElementById('lgtm-list-view');
-const magin = 20;
+const margin = 25;
 var currentItems = [];
 var isLoading = false;
 var isVisible = false;
@@ -33,7 +33,7 @@ self.port.on('add-images', function(items, _max) {
   items.forEach(function(item) {
     var img = document.createElement('img');
     img.id = item.id;
-    img.width = window.innerWidth - magin;
+    img.width = window.innerWidth - margin;
     img.className = 'image';
     img.src = item.imageUrl;
     lgtmListView.appendChild(img);
