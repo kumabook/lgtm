@@ -5,5 +5,5 @@
   "description": "Show LGTM images from lgtm.in/g. Copy markdown text to clipboard or input pull request textarea",
   "author": "Hiroki Kumamoto",
   "license": "MPL 2.0",
-  "version": "0.1"
+  "version": "0.6"
 }
