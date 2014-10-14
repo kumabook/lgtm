@@ -1,5 +1,5 @@
 # ![](data/menu-icon-256.png)
-## lgtm for firfox
+## lgtm for firfox [![Code Climate](https://codeclimate.com/github/kumabook/lgtm-for-firefox/badges/gpa.svg)](https://codeclimate.com/github/kumabook/lgtm-for-firefox)
 
 This is firefox addon for lgtm.in.
 You can spice up your LGTM comment.
