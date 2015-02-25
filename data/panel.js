@@ -38,7 +38,6 @@ self.port.on('add-images', function(items, _max) {
     img.src = item.imageUrl;
     lgtmListView.appendChild(img);
     img.onclick = function() {
-      console.log('clicked:' + item);
       document.getElementById('message').style.display = '';
       self.port.emit('select', item);
     };
