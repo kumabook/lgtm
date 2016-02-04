@@ -16,6 +16,7 @@ const horesaseUrl    = 'http://jigokuno.com/';
 const horesaseApiUrl = 'http://horesase.github.io/horesase-boys/meigens.json';
 const XMLHttpRequest = xhr.XMLHttpRequest;
 var meigens = null;
+const horesaseRate = 0.05;
 var fetchJSONAsync = function(url, requests) {
   var deferred = promise.defer();
   let req = new XMLHttpRequest();
@@ -110,7 +111,7 @@ var LgtmType = {
 
 var getTypeRandomly = function() {
   var val = Math.random();
-  if (val <= 0.05) {
+  if (val <= horesaseRate) {
     return LgtmType.horesase;
   } else {
     return LgtmType.lgtm;
