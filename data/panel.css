@@ -1,5 +1,7 @@
 .content {
 /*  background-color: #27384c;*/
+  margin: 0;
+  padding: 0;
 }
 
 .message {
@@ -40,8 +42,38 @@
   margin-left: -16px;
 }
 .list-view {
+  margin: 35px 0 0 5px;
+}
+.control-btns {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 35px;
+  z-index: 1;
+  background-color: #f6f6f6;
+  padding: 2px;
+}
+.control-btn {
+  border: 1px solid transparent;
+  background-color: transparent;
+  font-weight: bold;
+  color: #575757;
+  margin: 3px;
+  font-size: 18px;
+}
+.control-btn:hover {
+  border-color: #adadad;
+  background-color: #e3e3e3;
+  cursor: pointer;
+}
+.control-btn::-moz-focus-inner {
+  border: none;
 }
 .image {
   cursor: pointer;
   margin: auto;
+}
+.half-width-list > img {
+  width: 48%;
+  margin: 2px;
 }

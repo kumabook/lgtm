@@ -1,5 +1,6 @@
 const lgtmListView = document.getElementById('lgtm-list-view');
 const margin = 25;
+const halfWidthClassName = 'half-width-list';
 var currentItems = [];
 var isLoading = false;
 var isVisible = false;
@@ -53,12 +54,42 @@ self.port.on('show', function(_type) {
   type = _type;
   isVisible = true;
   document.getElementById('message').style.display = 'none';
+
+  var halfBtn = document.getElementById('half-width-btn');
+  halfBtn.onclick = function(e) {
+    var className = lgtmListView.className;
+    if(className.indexOf(halfWidthClassName) > 0) {
+      return;
+    }
+    lgtmListView.className += ' half-width-list';
+    self.port.emit('divideCol', 2);
+    fill();
+  };
+
+  var fullBtn = document.getElementById('full-width-btn');
+  fullBtn.onclick = function(e) {
+    var classes = lgtmListView.className;
+    lgtmListView.className = classes.replace(' half-width-list', '');
+    self.port.emit('resetCols');
+  };
+
+  var reloadBtn = document.getElementById('reload-btn');
+  reloadBtn.onclick = function(e) {
+    clearItems();
+    self.port.emit('next', type);
+  };
   showProgress();
 });
 
 
 self.port.on('hide', function() {
   isVisible = false;
+  clearItems();
+  self.port.emit('cancel');
+  self.port.emit('complete');
+});
+
+var clearItems = function() {
   currentItems.forEach(function(item) {
     var img = document.getElementById(item.id);
     img.onclick = null;
@@ -68,11 +99,13 @@ self.port.on('hide', function() {
   while (lgtmListView.firstChild){
     lgtmListView.removeChild(lgtmListView.firstChild);
   }
-  self.port.emit('cancel');
-  self.port.emit('complete');
-});
+};
 
-document.onscroll = function() {
+document.onwheel = function(e) {
+  // only scroll down
+  if(e.deltaY < 0) {
+      return;
+  }
   var docElem = this.documentElement;
   var bottom  = (docElem.scrollHeight - docElem.clientHeight) -
                  docElem.scrollTop;

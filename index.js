@@ -17,6 +17,7 @@ const horesaseApiUrl = 'http://horesase.github.io/horesase-boys/meigens.json';
 const XMLHttpRequest = xhr.XMLHttpRequest;
 var meigens = null;
 const horesaseRate = 0.05;
+var perPageDynamic = perPage;
 var fetchJSONAsync = function(url, requests) {
   var deferred = promise.defer();
   let req = new XMLHttpRequest();
@@ -54,7 +55,7 @@ var fetchLGTM = function(images, requests) {
 var fetchTiqav = function(images, requests) {
   var deferred = promise.defer();
   fetchJSONAsync(tiqavApiUrl, requests).then(function(imgs) {
-    for (var i = 0; i < perPage; i++) {
+    for (var i = 0; i < perPageDynamic; i++) {
       var img = imgs[i];
       var url = tiqavImgUrl + img.id + '.' + img.ext;
       var src = tiqavUrl + img.id;
@@ -71,7 +72,7 @@ var fetchTiqav = function(images, requests) {
   return deferred.promise;
 };
 var addBoys = function(boys, images) {
-  for (var i = 0; i < perPage; i++) {
+  for (var i = 0; i < perPageDynamic; i++) {
     var boyId = Math.floor(Math.random() * boys.length) + 1;
     var boy = boys[boyId];
     images.push({
@@ -130,7 +131,7 @@ var fetchImages = function(panel, type, requests) {
     promises.push(fetchHoresase(images, requests));
     break;
   case LgtmType.lgtm.name:
-    for (var i = 0; i < perPage; i++) {
+    for (var i = 0; i < perPageDynamic; i++) {
       promises.push(fetchLGTM(images, requests));
     }
     break;
@@ -192,10 +193,20 @@ var initializePanel = function() {
     panel.port.removeListener('cancel', cancel);
     panel.port.removeListener('cancel', complete);
     panel.port.removeListener('next', next);
+    panel.port.removeListener('divideCol', divideCol);
+    panel.port.removeListener('resetCols', resetCols);
+  };
+  var divideCol = function(_cols) {
+    perPageDynamic = perPage * _cols;
+  };
+  var resetCols = function() {
+    perPageDynamic = perPage;
   };
   panel.port.on('cancel', cancel);
   panel.port.on('complete', complete);
   panel.port.on('next', next);
+  panel.port.on('divideCol', divideCol);
+  panel.port.on('resetCols', resetCols);
   panel.port.emit('show', type);
 };
 
