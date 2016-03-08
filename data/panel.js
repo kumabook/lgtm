@@ -63,7 +63,6 @@ self.port.on('show', function(_type) {
     }
     lgtmListView.className += ' half-width-list';
     self.port.emit('divideCol', 2);
-    fill();
   };
 
   var fullBtn = document.getElementById('full-width-btn');
