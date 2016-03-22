@@ -16,9 +16,8 @@ input it to the textarea.
 ## How to build
 
 ```
-   $ git submodule init
-   $ git submodule update
-   $ addon-sdk/bin/cfx xpi
+   $ npm install jpm --global
+   $ jpm run
 ```
 
 ## Special Thanks:
