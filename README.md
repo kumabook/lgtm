@@ -16,8 +16,8 @@ input it to the textarea.
 ## How to build
 
 ```
-   $ npm install jpm --global
-   $ jpm run
+   $ npm install web-ext --global
+   $ web-ext run
 ```
 
 ## Special Thanks:
