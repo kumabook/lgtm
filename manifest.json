@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "lgtm-for-firefox",
+  "version": "1.0.0",
+  "description": "Show LGTM images from lgtm.in/g. Copy markdown text to clipboard or input pull request textarea",
+  "icons": {
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "64": "icons/icon64.png"
+  },
+  "applications": {
+    "gecko": {
+      "id": "jid1-Iu9HKpfUiXWLZw@jetpack",
+      "strict_min_version": "42.0"
+    }
+  },
+  "permissions": [
+    "*://www.lgtm.in/*",
+    "webRequest",
+    "activeTab"
+  ],
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": "icons/icon64.png",
+    "default_title": "button label",
+    "default_popup": "data/panel.html"
+  }
+}
