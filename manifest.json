@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "lgtm-for-firefox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Show LGTM images from lgtm.in/g. Copy markdown text to clipboard or input pull request textarea",
   "icons": {
     "32": "icons/icon32.png",
