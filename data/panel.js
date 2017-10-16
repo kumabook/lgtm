@@ -34,10 +34,10 @@ function select(item) {
   document.execCommand('Copy');
   browser.tabs.executeScript({ file: './insertTextarea.js' });
   const gettingActiveTab = browser.tabs.query({ active: true, currentWindow: true });
-  gettingActiveTab.then((tabs) => {
+  setTimeout(() => gettingActiveTab.then((tabs) => {
     tabId = tabs[0].id;
     browser.tabs.sendMessage(tabId, { type: 'select', payload: item });
-  });
+  }), 100);
   setTimeout(hide, 250);
 }
 
