@@ -1,7 +1,7 @@
 {
   "id": "jid1-Iu9HKpfUiXWLZw@jetpack",
-  "title": "lgtm-for-firefox",
-  "name": "lgtm-for-firefox",
+  "title": "lgtm",
+  "name": "lgtm",
   "version": "0.8.2",
   "description": "Show LGTM images from lgtm.in/g. Copy markdown text to clipboard or input pull request textarea",
   "main": "index.js",
