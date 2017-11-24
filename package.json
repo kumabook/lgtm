@@ -9,8 +9,17 @@
   "engines": {
     "firefox": ">=38.0a1"
   },
+  "scripts": {
+    "build": "web-ext build --overwrite-dest -i src/ \"**/*~\"",
+    "start": "web-ext run --bc -f $FIREFOX_BINARY",
+    "sign": "webpack && web-ext sign -i src/ \"**/*~\" --api-key $API_KEY --api-secret $API_SECRET",
+    "pack": "git archive HEAD --output=lgtm.zip"
+  },
   "license": "MIT",
   "keywords": [
     "jetpack"
-  ]
+  ],
+  "dependencies": {
+    "web-ext": "^2.2.2"
+  }
 }
